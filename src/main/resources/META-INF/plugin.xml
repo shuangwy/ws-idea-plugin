@@ -1,0 +1,8 @@
+<idea-plugin>
+    <id>com.yourcompany.myplugin</id>
+    <name>MyPlugin</name>
+    <vendor>YourCompany</vendor>
+    <description>A simple plugin</description>
+    <version>1.0-SNAPSHOT</version>
+    <idea-version since-build="243.24978.46"/>
+</idea-plugin>

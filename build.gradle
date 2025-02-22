@@ -1,0 +1,43 @@
+plugins {
+    id 'org.jetbrains.intellij' version '1.17.0'
+    id 'java'
+}
+
+group 'com.yourcompany'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://packages.jetbrains.team/maven/p/ij/intellij-dependencies' }
+    maven { url 'https://plugins.gradle.org/m2' }
+}
+
+dependencies {
+//    implementation 'org.cef:cef:126.2.0'
+    implementation 'me.friwi:jcefmaven:127.3.1'
+}
+
+intellij {
+    version = '2024.3.3' // 插件会自动引入所需依赖
+    type = 'IC'
+    pluginName = 'com.yourcompany.myplugin'
+    updateSinceUntilBuild = false
+}
+
+patchPluginXml {
+    changeNotes = """Initial version."""
+}
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+task buildAngular(type: Exec) {
+    workingDir 'src/main/resources/ui'
+    commandLine 'ng', 'build', '--configuration', 'production', '--output-path', 'dist/ui'
+}
+
+processResources.dependsOn 'buildAngular'
